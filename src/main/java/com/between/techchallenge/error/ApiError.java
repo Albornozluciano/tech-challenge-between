@@ -33,7 +33,9 @@ public class ApiError {
 
     public enum ValidationError {
         REQUIRED_PARAM("/error/invalid_param/required", "Required param is missing.", HttpStatus.BAD_REQUEST),
-        TYPE_PARAM("/error/invalid_param/type", "Invalid type.", HttpStatus.BAD_REQUEST);
+        TYPE_PARAM("/error/invalid_param/type", "Invalid type.", HttpStatus.BAD_REQUEST),
+        PRICE_NOT_FOUND("/error/not_found/price", "Price not found.", HttpStatus.NOT_FOUND),
+        UNKNOWN_INTERNAL_SERVER_ERROR("/error/internal_server_error", "Internal server error.", HttpStatus.INTERNAL_SERVER_ERROR);
 
         private final String type;
         private final String title;

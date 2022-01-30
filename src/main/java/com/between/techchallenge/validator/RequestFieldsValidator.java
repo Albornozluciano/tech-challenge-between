@@ -2,15 +2,14 @@ package com.between.techchallenge.validator;
 
 import com.between.techchallenge.error.ApiError;
 import com.between.techchallenge.error.CustomException;
+import com.between.techchallenge.util.DateUtils;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.between.techchallenge.error.ApiError.ValidationError.REQUIRED_PARAM;
 import static com.between.techchallenge.error.ApiError.ValidationError.TYPE_PARAM;
+import static com.between.techchallenge.util.DateUtils.DATE_FORMAT;
 
 public class RequestFieldsValidator {
 
@@ -20,9 +19,8 @@ public class RequestFieldsValidator {
 
     private static final String LONG_TYPE = "long";
     private static final String DATE_TYPE = "date";
-    private static final String DATE_FORMAT = "yyyy-MM-dd-HH.mm.ss";
 
-    public static void validatePathParams(String productId, String brandId, String applicationDate) throws CustomException {
+    public static void validatePathParams(String brandId, String productId, String applicationDate) throws CustomException {
         Map<String, ValidationRequirements> params = new HashMap<>();
         params.put(PRODUCT_ID_PARAM_KEY, new ValidationRequirements(productId, true, LONG_TYPE));
         params.put(BRAND_ID_PARAM_KEY, new ValidationRequirements(brandId, true, LONG_TYPE));
@@ -50,11 +48,9 @@ public class RequestFieldsValidator {
                 }
                 break;
             case DATE_TYPE:
-                DateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-                sdf.setLenient(false);
                 try {
-                    sdf.parse(value);
-                } catch (ParseException e) {
+                    DateUtils.fromStringToDate(value);
+                } catch (CustomException e) {
                     return false;
                 }
                 break;
