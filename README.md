@@ -1,23 +1,30 @@
-# tech-challenge-between
-Test Java - Between/Inditex
+## Test Java - Between/Inditex
 
 Aplicación realizada en Java+Spring boot para el ejercicio a presentar a Between/Inditex.
 
 ---
-**Enunciado:**
+## Tecnologías
+
+- Java 8
+- Spring Boot 2
+- H2
+- Swagger
+- Docker
+---
+## Enunciado
 
 El enunciado es el siguiente: 
 
 En la base de datos de comercio electrónico de la compañía disponemos de la tabla PRICES que refleja el precio final (pvp) y la tarifa que aplica a un producto de una cadena entre unas fechas determinadas.
 
-Campos:
-BRAND_ID: foreign key de la cadena del grupo (1 = ZARA).
-START_DATE , END_DATE: rango de fechas en el que aplica el precio tarifa indicado.
-PRICE_LIST: Identificador de la tarifa de precios aplicable.
-PRODUCT_ID: Identificador código de producto.
-PRIORITY: Desambiguador de aplicación de precios. Si dos tarifas coinciden en un rango de fechas se aplica la de mayor prioridad (mayor valor numérico).
-PRICE: precio final de venta.
-CURR: iso de la moneda.
+**Campos**
+- BRAND_ID: foreign key de la cadena del grupo (1 = ZARA).
+- START_DATE , END_DATE: rango de fechas en el que aplica el precio tarifa indicado.
+- PRICE_LIST: Identificador de la tarifa de precios aplicable.
+- PRODUCT_ID: Identificador código de producto.
+- PRIORITY: Desambiguador de aplicación de precios. Si dos tarifas coinciden en un rango de fechas se aplica la de mayor prioridad (mayor valor numérico).
+- PRICE: precio final de venta.
+- CURR: iso de la moneda.
 
 Se pide:
 
@@ -123,3 +130,41 @@ Habiendo leído el enunciado, procedo a especificar una lista de afirmaciones qu
         Errores esperados:
             "/error/internal_server_error" -> Cualquier error del server desconocido es devuelto con un formato amigable.
             "/error/internal_server_error/database_access" -> Error en la conexion a la base de datos, consulta sql, transaccion, etc.
+
+---
+
+Para ejecutar el proyecto:
+
+```sh
+docker build -t app/test-java-1.0.0 .
+docker run -p 8080:8080 app/test-java-1.0.0
+```
+
+Casos de uso:
+
+**Obtener un precio de un producto existente**
+
+    curl --location --request GET 'http://localhost:8080/v1/prices?productId=35455&brandId=1&applicationDate=2020-06-16-01.00.00'
+    Status:  200
+    Response Body: {"product_id":35455,"brand_id":1,"pricing":{"currency_id":"EUR","perceived_value":{"id":4,"total":38.95},"fee":{"id":4,"total":40.0},"application_from":"2020-06-15-16.00.00","application_to":"2020-12-31-23.59.59"}}
+
+**Obtener un precio de un producto inexistente**
+
+    curl --location --request GET 'http://localhost:8080/v1/prices?productId=1&brandId=1&applicationDate=2020-06-16-01.00.00'
+    Status:  404
+    Response Body: {"type":"/error/not_found/price","title":"Price not found.","status":"Not Found","code":404,"detail":"Price error not found with values BrandId: '1',  ProductId: '1', ApplicationDate: '2020-06-16-01.00.00'."}
+
+
+**Obtener un precio de un producto con una fecha/hora que posee mas de un registro y devuelve el de mayor prioridad:**
+
+    curl --location --request GET 'http://localhost:8080/v1/prices?productId=35455&brandId=1&applicationDate=2020-06-15-16.00.00'
+    Status:  200
+    Response Body: {"product_id":35455,"brand_id":1,"pricing":{"currency_id":"EUR","perceived_value":{"id":4,"total":38.95},"fee":{"id":4,"total":40.0},"application_from":"2020-06-15-16.00.00","application_to":"2020-12-31-23.59.59"}}
+
+**Error en los parametros:**
+
+    curl --location --request GET 'http://localhost:8080/v1/prices?productId=sss&brandId=1&applicationDate=2020-06-15-16.00.00'
+    Status:  400
+    Response Body: {"type":"/error/invalid_param/type","title":"Invalid type.","status":"Bad Request","code":400,"detail":"Invalid param. Param type expected: 'long'. Param: 'productId'."}
+
+---
