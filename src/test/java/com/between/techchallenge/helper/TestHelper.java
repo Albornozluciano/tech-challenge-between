@@ -32,6 +32,7 @@ public class TestHelper {
 
     protected final Gson gson = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .disableHtmlEscaping()
             .create();
 
     protected String buildUrl(String baseUrl, Map<String, String> queryParams) {

@@ -12,7 +12,7 @@ public interface PricesRepository extends CrudRepository<Price, Long> {
      * Retrieves a single price by brand, product and an application date.
      * @param brandId - Brand Identifier
      * @param productId - Product Identifier
-     * @param applicationDate - Date with pattern yyyy-mm-dd-hh.MM.ss
+     * @param applicationDate - Date with pattern yyyy-MM-dd-HH.mm.ss
      * @return A single price between start_date and end_date columns. If there is more than 1 row, the priority will
      * decide which row is the correct price.
      **/

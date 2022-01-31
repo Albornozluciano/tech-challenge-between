@@ -28,7 +28,7 @@ public class PricesController {
      * Retrieves a single price by brand, product and an application date.
      * @param brandId - Brand Identifier
      * @param productId - Product Identifier
-     * @param applicationDate - Date with pattern yyyy-mm-dd-hh.MM.ss
+     * @param applicationDate - Date with pattern yyyy-MM-dd-HH.mm.ss
      * @return BrandProductPriceDTO with data related to PVP, Fee, DateFrom, DateTo and Currency.
      *  Response status:
      *      200 if there's a valid price for the brand, product and date.

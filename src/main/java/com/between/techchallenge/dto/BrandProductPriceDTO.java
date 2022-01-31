@@ -1,5 +1,6 @@
 package com.between.techchallenge.dto;
 
+import com.between.techchallenge.error.CustomException;
 import com.between.techchallenge.model.Price;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class BrandProductPriceDTO {
     public BrandProductPriceDTO() {
     }
 
-    public BrandProductPriceDTO buildFrom(Price price) {
+    public BrandProductPriceDTO buildFrom(Price price) throws CustomException {
         this.productId = price.getProductId();
         this.brandId = price.getBrandId();
         this.pricing = new PricingDTO().buildFrom(price);

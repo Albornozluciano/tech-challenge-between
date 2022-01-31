@@ -24,7 +24,7 @@ public class RequestFieldsValidator {
      * Validates that request params exist and their type are correct.
      * @param brandId - Brand Identifier
      * @param productId - Product Identifier
-     * @param applicationDate - Date with pattern yyyy-mm-dd-hh.MM.ss
+     * @param applicationDate - Date with pattern yyyy-MM-dd-HH.mm.ss
      * @throws CustomException in case that there's an error with any param existence or type.
      */
     public static void validateRequestParams(String brandId, String productId, String applicationDate) throws CustomException {

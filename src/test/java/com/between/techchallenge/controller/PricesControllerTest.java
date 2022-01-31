@@ -1,5 +1,7 @@
 package com.between.techchallenge.controller;
 
+import static com.between.techchallenge.error.ApiError.ValidationError.REQUIRED_PARAM;
+import static com.between.techchallenge.error.ApiError.ValidationError.TYPE_PARAM;
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -9,6 +11,7 @@ import com.between.techchallenge.dto.BrandProductPriceDTO.BrandProductPriceDTOBu
 import com.between.techchallenge.dto.FeeDTO;
 import com.between.techchallenge.dto.PVPDTO;
 import com.between.techchallenge.dto.PricingDTO.PricingDTOBuilder;
+import com.between.techchallenge.error.ApiError;
 import com.between.techchallenge.helper.TestHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -200,8 +203,11 @@ public class PricesControllerTest extends TestHelper {
 
         queryParams.remove(BRAND_ID_PARAM_NAME);
 
+        ApiError expectedApiError = new ApiError(REQUIRED_PARAM, "Invalid param. The following param is required but it's missing: '" + BRAND_ID_PARAM_NAME + "'.");
+
         mvc.perform(MockMvcRequestBuilders.get(buildUrl(baseUrl, queryParams)).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(equalTo(gson.toJson(expectedApiError))));
     }
 
     @Test
@@ -218,8 +224,11 @@ public class PricesControllerTest extends TestHelper {
 
         queryParams.remove(PRODUCT_ID_PARAM_NAME);
 
+        ApiError expectedApiError = new ApiError(REQUIRED_PARAM, "Invalid param. The following param is required but it's missing: '" + PRODUCT_ID_PARAM_NAME + "'.");
+
         mvc.perform(MockMvcRequestBuilders.get(buildUrl(baseUrl, queryParams)).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(equalTo(gson.toJson(expectedApiError))));
     }
 
     @Test
@@ -236,57 +245,74 @@ public class PricesControllerTest extends TestHelper {
 
         queryParams.remove(APPLICATION_DATE_PARAM_NAME);
 
+        ApiError expectedApiError = new ApiError(REQUIRED_PARAM, "Invalid param. The following param is required but it's missing: '" + APPLICATION_DATE_PARAM_NAME + "'.");
+
         mvc.perform(MockMvcRequestBuilders.get(buildUrl(baseUrl, queryParams)).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(equalTo(gson.toJson(expectedApiError))));
     }
 
     @Test
     public void getPriceWithInvalidApplicationDateTypeShouldBeBadRequest() throws Exception {
         queryParams.put(APPLICATION_DATE_PARAM_NAME, "1234");
 
+        ApiError expectedApiError = new ApiError(TYPE_PARAM, "Invalid param. Param type expected: 'date' and format 'yyyy-MM-dd-HH.mm.ss'. Param: '" + APPLICATION_DATE_PARAM_NAME + "'.");
+
         mvc.perform(MockMvcRequestBuilders.get(buildUrl(baseUrl, queryParams)).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(equalTo(gson.toJson(expectedApiError))));
 
         queryParams.put(APPLICATION_DATE_PARAM_NAME, "invalidPattern");
 
         mvc.perform(MockMvcRequestBuilders.get(buildUrl(baseUrl, queryParams)).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(equalTo(gson.toJson(expectedApiError))));
 
         queryParams.put(APPLICATION_DATE_PARAM_NAME, "21/02/1999");
 
         mvc.perform(MockMvcRequestBuilders.get(buildUrl(baseUrl, queryParams)).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(equalTo(gson.toJson(expectedApiError))));
 
         queryParams.put(APPLICATION_DATE_PARAM_NAME, "1999-21-02-12.00.00.00");
 
         mvc.perform(MockMvcRequestBuilders.get(buildUrl(baseUrl, queryParams)).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(equalTo(gson.toJson(expectedApiError))));
     }
 
     @Test
     public void getPriceWithInvalidBrandTypeShouldBeBadRequest() throws Exception {
         queryParams.put(BRAND_ID_PARAM_NAME, "notANumber");
 
+        ApiError expectedApiError = new ApiError(TYPE_PARAM, "Invalid param. Param type expected: 'long'. Param: '" + BRAND_ID_PARAM_NAME + "'.");
+
         mvc.perform(MockMvcRequestBuilders.get(buildUrl(baseUrl, queryParams)).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(equalTo(gson.toJson(expectedApiError))));
 
         queryParams.put(BRAND_ID_PARAM_NAME, "1.0");
 
         mvc.perform(MockMvcRequestBuilders.get(buildUrl(baseUrl, queryParams)).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(equalTo(gson.toJson(expectedApiError))));
     }
 
     @Test
     public void getPriceWithInvalidProductTypeShouldBeBadRequest() throws Exception {
         queryParams.put(PRODUCT_ID_PARAM_NAME, "notANumber");
 
+        ApiError expectedApiError = new ApiError(TYPE_PARAM, "Invalid param. Param type expected: 'long'. Param: '" + PRODUCT_ID_PARAM_NAME + "'.");
+
         mvc.perform(MockMvcRequestBuilders.get(buildUrl(baseUrl, queryParams)).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(equalTo(gson.toJson(expectedApiError))));
 
         queryParams.put(PRODUCT_ID_PARAM_NAME, "1.0");
 
         mvc.perform(MockMvcRequestBuilders.get(buildUrl(baseUrl, queryParams)).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(equalTo(gson.toJson(expectedApiError))));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.between.techchallenge.dto;
 
+import com.between.techchallenge.error.CustomException;
 import com.between.techchallenge.model.Price;
 import com.between.techchallenge.util.DateUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,7 +31,7 @@ public class PricingDTO {
 
     }
 
-    PricingDTO buildFrom(Price price) {
+    PricingDTO buildFrom(Price price) throws CustomException {
         this.currencyId = price.getCurr();
         this.perceivedValue = new PVPDTO().buildFrom(price);
         this.fee = new FeeDTO().buildFrom(price);

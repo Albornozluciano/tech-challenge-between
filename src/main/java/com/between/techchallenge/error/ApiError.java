@@ -54,5 +54,9 @@ public class ApiError {
             this.title = title;
             this.status = status;
         }
+
+        public String getType() {
+            return type;
+        }
     }
 }

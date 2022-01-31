@@ -29,7 +29,7 @@ public class PricesServiceImpl implements PricesService {
      * Retrieves a single price by brand, product and an application date.
      * @param brandId - Brand Identifier
      * @param productId - Product Identifier
-     * @param applicationDate - Date with pattern yyyy-mm-dd-hh.MM.ss
+     * @param applicationDate - Date with pattern yyyy-MM-dd-HH.mm.ss
      * @return BrandProductPriceDTO with data related to PVP, Fee, DateFrom, DateTo and Currency.
     **/
     @Override
@@ -43,7 +43,7 @@ public class PricesServiceImpl implements PricesService {
             throw new CustomException(new ApiError(BD_INTERNAL_SERVER_ERROR, "Error getting price from database."), dax);
         } catch (Throwable t) {
             logger.debug("Error getting price from database");
-            throw new CustomException(new ApiError(BD_INTERNAL_SERVER_ERROR, "Unkown error getting price from database."), t);
+            throw new CustomException(new ApiError(BD_INTERNAL_SERVER_ERROR, "Unknown error getting price from database."), t);
         }
 
         if (price == null) {

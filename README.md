@@ -104,7 +104,7 @@ Habiendo leído el enunciado, procedo a especificar una lista de afirmaciones qu
             }
         Errores esperados:
             "/error/invalid_param/required" -> No se envió algún query param que es requerido para realizar la consulta. Params obligatorios: ProductId, BrandId y ApplicationDate
-            "/error/invalid_param/type" -> El formato del query param enviado no es correcto. Tipos de datos requeridos: ProductId y BrandId tipo numérico. ApplicationDate tipo fecha con el pattern "yyyy-mm-dd-hh.MM.ss".
+            "/error/invalid_param/type" -> El formato del query param enviado no es correcto. Tipos de datos requeridos: ProductId y BrandId tipo numérico. ApplicationDate tipo fecha con el pattern "yyyy-MM-dd-HH.mm.ss".
         
         Status 404 -> NOT_FOUND - No se encontró registro con la información enviada.
         Example Body:
