@@ -144,9 +144,9 @@ Casos de uso:
 
 **Obtener un precio de un producto existente**
 
-    curl --location --request GET 'http://localhost:8080/v1/prices?productId=35455&brandId=1&applicationDate=2020-06-16-01.00.00'
+    curl --location --request GET 'http://localhost:8080/v1/prices?productId=35455&brandId=1&applicationDate=2020-06-14-02.00.00'
     Status:  200
-    Response Body: {"product_id":35455,"brand_id":1,"pricing":{"currency_id":"EUR","perceived_value":{"id":4,"total":38.95},"fee":{"id":4,"total":40.0},"application_from":"2020-06-15-16.00.00","application_to":"2020-12-31-23.59.59"}}
+    Response Body: {"product_id":35455,"brand_id":1,"pricing":{"currency_id":"EUR","perceived_value":{"id":1,"total":35.5},"fee":{"id":1,"total":10.0},"application_from":"2020-06-14-00.00.00","application_to":"2020-12-31-23.59.59"}}
 
 **Obtener un precio de un producto inexistente**
 
