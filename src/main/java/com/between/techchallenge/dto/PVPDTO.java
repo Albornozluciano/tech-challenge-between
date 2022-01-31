@@ -9,6 +9,15 @@ public class PVPDTO {
     @JsonProperty("total")
     private Double total;
 
+    public PVPDTO(Integer id, Double total) {
+        this.id = id;
+        this.total = total;
+    }
+
+    public PVPDTO() {
+
+    }
+
     PVPDTO buildFrom(Price price) {
         this.id = price.getId();
         this.total = price.getPrice();

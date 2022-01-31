@@ -17,7 +17,7 @@ public class PricesController {
     @Autowired
     PricesService pricesService;
 
-    @GetMapping("/prices")
+    @GetMapping("/v1/prices")
     public BrandProductPriceDTO getPriceByProductAndBrand(
             @RequestParam(required = false) String productId,
             @RequestParam(required = false) String brandId,
