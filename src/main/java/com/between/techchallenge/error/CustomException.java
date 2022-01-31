@@ -1,5 +1,9 @@
 package com.between.techchallenge.error;
 
+
+/**
+ * A Custom exception to add and forward an ApiError and a Throwable to decide what to do at the moment of the server response.
+ */
 public class CustomException extends Exception {
 
     private static final long serialVersionUID = 1L;

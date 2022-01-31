@@ -18,14 +18,6 @@ public class PricingDTO {
     @JsonProperty("application_to")
     private String applicationTo;
 
-    public PricingDTO(String currencyId, PVPDTO perceivedValue, FeeDTO fee, String applicationFrom, String applicationTo) {
-        this.currencyId = currencyId;
-        this.perceivedValue = perceivedValue;
-        this.fee = fee;
-        this.applicationFrom = applicationFrom;
-        this.applicationTo = applicationTo;
-    }
-
     public PricingDTO(PricingDTOBuilder pricingDTOBuilder) {
         this.currencyId = pricingDTOBuilder.currencyId;
         this.perceivedValue = pricingDTOBuilder.perceivedValue;

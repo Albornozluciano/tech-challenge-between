@@ -20,7 +20,14 @@ public class RequestFieldsValidator {
     private static final String LONG_TYPE = "long";
     private static final String DATE_TYPE = "date";
 
-    public static void validatePathParams(String brandId, String productId, String applicationDate) throws CustomException {
+    /**
+     * Validates that request params exist and their type are correct.
+     * @param brandId - Brand Identifier
+     * @param productId - Product Identifier
+     * @param applicationDate - Date with pattern yyyy-mm-dd-hh.MM.ss
+     * @throws CustomException in case that there's an error with any param existence or type.
+     */
+    public static void validateRequestParams(String brandId, String productId, String applicationDate) throws CustomException {
         Map<String, ValidationRequirements> params = new HashMap<>();
         params.put(PRODUCT_ID_PARAM_KEY, new ValidationRequirements(productId, true, LONG_TYPE));
         params.put(BRAND_ID_PARAM_KEY, new ValidationRequirements(brandId, true, LONG_TYPE));
@@ -38,6 +45,12 @@ public class RequestFieldsValidator {
         }
     }
 
+    /**
+     * Validates Long and Date type param.
+     * @param type - type to decide which validation corresponds to the value. It can be Long or Date.
+     * @param value - value to validate.
+     * @return boolean - true if the type for the value is correcty. False if there's a problem with the type or date pattern.
+     */
     private static boolean isValidType(String type, String value) {
         switch(type) {
             case LONG_TYPE:
@@ -58,6 +71,12 @@ public class RequestFieldsValidator {
         return true;
     }
 
+    /**
+     * Structure that helps to map the params requirements.
+     * Value: the param value to validate.
+     * Required: determines if the param is required or not.
+     * Type: specifies the param type to decide the validations to do.
+     */
     private static class ValidationRequirements {
         private final String value;
         private final boolean required;

@@ -3,6 +3,10 @@ package com.between.techchallenge.error;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+
+/**
+ * An Api Error structure based on RFC-7807: https://datatracker.ietf.org/doc/html/rfc7807
+ */
 @Getter
 public class ApiError {
     private String type = "/error/";
@@ -31,6 +35,9 @@ public class ApiError {
         return this;
     }
 
+    /**
+     * An enum of known errors with their HttpStatus, type and data.
+     */
     public enum ValidationError {
         REQUIRED_PARAM("/error/invalid_param/required", "Required param is missing.", HttpStatus.BAD_REQUEST),
         TYPE_PARAM("/error/invalid_param/type", "Invalid type.", HttpStatus.BAD_REQUEST),

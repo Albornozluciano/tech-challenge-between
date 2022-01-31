@@ -13,12 +13,6 @@ public class BrandProductPriceDTO {
     @JsonProperty("pricing")
     private PricingDTO pricing;
 
-    public BrandProductPriceDTO(Integer productId, Integer brandId, PricingDTO pricing) {
-        this.productId = productId;
-        this.brandId = brandId;
-        this.pricing = pricing;
-    }
-
     public BrandProductPriceDTO() {
     }
 

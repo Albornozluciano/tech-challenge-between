@@ -25,6 +25,13 @@ public class PricesServiceImpl implements PricesService {
     @Autowired
     PricesRepository priceRepository;
 
+    /**
+     * Retrieves a single price by brand, product and an application date.
+     * @param brandId - Brand Identifier
+     * @param productId - Product Identifier
+     * @param applicationDate - Date with pattern yyyy-mm-dd-hh.MM.ss
+     * @return BrandProductPriceDTO with data related to PVP, Fee, DateFrom, DateTo and Currency.
+    **/
     @Override
     public BrandProductPriceDTO getPriceByBrandProductAndDate(String brandId, String productId, Date applicationDate) throws CustomException {
         Price price;

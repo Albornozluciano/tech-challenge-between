@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Handler that catches any unkonwn Internal Server Error and responds an ApiError structure with a friendly default response data.
+ * It also catches CustomException to log any error that it forwards in its Throwable field and it sets the response status based on the ApiError.
+ */
 @RestController
 @ControllerAdvice
 public class ErrorHandler {

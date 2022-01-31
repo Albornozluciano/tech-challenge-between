@@ -18,6 +18,11 @@ public class DateUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(PricesController.class);
 
+    /**
+     * Converts String type to Date type.
+     * @param stringDate - String that represents a date with pattern yyyy-mm-dd-hh.MM.ss
+     * @return A Date with pattern yyyy-mm-dd-hh.MM.ss.
+     **/
     public static Date fromStringToDate(String stringDate) throws CustomException {
         DateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         sdf.setLenient(false);
@@ -31,6 +36,11 @@ public class DateUtils {
         return dateParsed;
     }
 
+    /**
+     * Converts Date type to String type.
+     * @param date - Date with pattern yyyy-mm-dd-hh.MM.ss
+     * @return A String that represents the date with pattern yyyy-mm-dd-hh.MM.ss.
+     **/
     public static String fromDateToString(Date date) {
         DateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         sdf.setLenient(false);
