@@ -19,7 +19,6 @@ public class BrandProductPriceDTO {
         this.pricing = pricing;
     }
 
-
     public BrandProductPriceDTO() {
     }
 
@@ -28,5 +27,41 @@ public class BrandProductPriceDTO {
         this.brandId = price.getBrandId();
         this.pricing = new PricingDTO().buildFrom(price);
         return this;
+    }
+
+    private BrandProductPriceDTO(BrandProductPriceDTOBuilder builder) {
+        this.productId = builder.productId;
+        this.brandId = builder.brandId;
+        this.pricing = builder.pricing;
+    }
+
+    public static class BrandProductPriceDTOBuilder
+    {
+        private Integer productId;
+        private Integer brandId;
+        private PricingDTO pricing;
+
+        public BrandProductPriceDTOBuilder() {
+
+        }
+
+        public BrandProductPriceDTOBuilder withProductId(Integer productId) {
+            this.productId = productId;
+            return this;
+        }
+
+        public BrandProductPriceDTOBuilder withBrandId(Integer brandId) {
+            this.brandId = brandId;
+            return this;
+        }
+
+        public BrandProductPriceDTOBuilder withPricingBuilder(PricingDTO.PricingDTOBuilder pricingDTO) {
+            this.pricing = pricingDTO.build();
+            return this;
+        }
+
+        public BrandProductPriceDTO build() {
+            return new BrandProductPriceDTO(this);
+        }
     }
 }

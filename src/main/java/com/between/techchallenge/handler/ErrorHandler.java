@@ -20,13 +20,17 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Throwable.class)
     public ApiError handleThrowable(Throwable ex) {
-        logger.error("Unknown Internal Server error.", ex);
+        logger.error("Unknown Internal Server error. Message: " + ex.getMessage() + " - Cause: " + ex.getCause(), ex);
         return new ApiError().buildInternalServerError();
     }
 
     @ExceptionHandler(CustomException.class)
     public ApiError handleCustomException(CustomException ex, HttpServletResponse response) {
         logger.debug("Custom exception.", ex);
+        if (ex.getThrowable() != null) {
+            Throwable throwable = ex.getThrowable();
+            logger.error("Unknown error. Message: " + throwable.getMessage() + " - Cause: " + throwable.getCause(), throwable);
+        }
         response.setStatus(ex.getApiError().getCode());
         return ex.getApiError();
     }

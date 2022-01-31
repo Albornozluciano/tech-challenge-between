@@ -35,6 +35,7 @@ public class ApiError {
         REQUIRED_PARAM("/error/invalid_param/required", "Required param is missing.", HttpStatus.BAD_REQUEST),
         TYPE_PARAM("/error/invalid_param/type", "Invalid type.", HttpStatus.BAD_REQUEST),
         PRICE_NOT_FOUND("/error/not_found/price", "Price not found.", HttpStatus.NOT_FOUND),
+        BD_INTERNAL_SERVER_ERROR("/error/internal_server_error/database_access", "Database access error.", HttpStatus.INTERNAL_SERVER_ERROR),
         UNKNOWN_INTERNAL_SERVER_ERROR("/error/internal_server_error", "Internal server error.", HttpStatus.INTERNAL_SERVER_ERROR);
 
         private final String type;

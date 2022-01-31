@@ -26,7 +26,7 @@ public class DateUtils {
             dateParsed = sdf.parse(stringDate);
         } catch (ParseException e) {
             logger.error("Error parsing string to date: " + stringDate);
-            throw new CustomException(new ApiError(UNKNOWN_INTERNAL_SERVER_ERROR, "Error parsing string to date value: " + stringDate + "."));
+            throw new CustomException(new ApiError(UNKNOWN_INTERNAL_SERVER_ERROR, "Error parsing string to date value: " + stringDate + "."), e);
         }
         return dateParsed;
     }
