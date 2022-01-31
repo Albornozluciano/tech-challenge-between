@@ -10,6 +10,7 @@ Aplicación realizada en Java+Spring boot para el ejercicio a presentar a Betwee
 - H2
 - Swagger
 - Docker
+
 ---
 ## Enunciado
 
@@ -59,7 +60,7 @@ Habiendo leído el enunciado, procedo a especificar una lista de afirmaciones qu
 1) Los límites de las fechas definidas van a ser incluídos. Por lo tanto si se define una fecha de las 14:00:00 hasta las 23:59:00 y deseo saber el precio para las 14:00:00, se tomará como incluido en el rango.
 2) Se desea devolver precio y tarifa. Sin embargo tenemos solamente un identificador de tarifas, por lo cual asumo que lo que se quiere es devolver el valor de la tarifa que puede estar guardada en otro lugar fuera de la tabla de PRICES. Para esto asumo que existe una tabla FEES que posee la información del valor de las tarifas dado un ID.
 3) Se devuelve la información del precio y tarifa pero de manera estructurada incluyendo data extra que puede ser importante (Currency Id), y de tal forma que si se necesita escalar y ampliar data de la respuesta, esto sea posible sin necesidad de cambiarla, sino solamente agregando nuevos campos en la estructura.
-4) Se realizaron los tests requeridos en la clase PriceControllerTest, con nombres challengeTest1 a challengeTest5.
+4) Se realizaron los tests requeridos en la clase PriceControllerTest, con nombres challengeTest1 a challengeTest5. > 90% coverage.
 
 ---
 
